@@ -1,3 +1,7 @@
+--
+-- Estrutura da tabela Users
+--
+
 CREATE TABLE Users (
 	UserCPF char(11) NOT NULL,
 	UserPassword varchar(6) NOT NULL,
@@ -5,7 +9,13 @@ CREATE TABLE Users (
 	CONSTRAINT UserCPF PRIMARY KEY (UserCPF)
 );
 
+--
+-- Inserindo dados na tabela Users
+--
 
+--
+-- Esrutura da tabela Events
+--
 
 CREATE TABLE Events (
 	EventID char(3) NOT NULL,
@@ -18,7 +28,13 @@ CREATE TABLE Events (
 	CONSTRAINT EventID PRIMARY KEY (EventID)
 );
 
+--
+-- Inserindo dados na tabela Events
+--
 
+--
+-- Estrutura da tabela Presentations
+--
 
 CREATE TABLE Presentations (
 	PresentationID char(4) NOT NULL,
@@ -31,7 +47,13 @@ CREATE TABLE Presentations (
 	CONSTRAINT PresentationID PRIMARY KEY (PresentationID)
 );
 
+--
+-- Inserindo dados na tabela Presentations
+--
 
+--
+-- Estrutura da tabela Tickets
+--
 
 CREATE TABLE Tickets (
 	TicketID char(5) NOT NULL,
@@ -40,7 +62,13 @@ CREATE TABLE Tickets (
 	CONSTRAINT TicketID PRIMARY KEY (TicketID)
 );
 
+--
+-- Inserindo dados na tabela Tickets
+--
 
+--
+-- Estrutura da tabela Cards
+--
 
 CREATE TABLE Cards (
 	CardNumber char(16) NOT NULL,
@@ -50,8 +78,14 @@ CREATE TABLE Cards (
 	CONSTRAINT CardNumber PRIMARY KEY (CardNumber)
 );
 
+--
+-- Inserindo dados na tabela Cards
+--
 
 
+--
+-- Adicionando CONSTRAINTS
+--
 
 ALTER TABLE Events ADD CONSTRAINT UserCPF FOREIGN KEY (UserCPF) REFERENCES Users(UserCPF);
 
