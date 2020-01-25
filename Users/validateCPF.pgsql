@@ -77,5 +77,5 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER valida_cpf
-AFTER INSERT Users
+AFTER INSERT ON Users
 FOR EACH ROW EXECUTE PROCEDURE valida_cpf(); 

@@ -5,7 +5,7 @@ RETURNS TRIGGER AS $$
   password varchar;
   counter integer;
   tempChar char;
-  haveDigit boolean;
+  haveDigit boolean;T
   BEGIN
   password := NEW.UserPassword;
   len := CHAR_LENGTH(password);
