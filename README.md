@@ -14,9 +14,10 @@ das seguintes classes de evento: teatro, esporte, show nacional e show internaci
 * O usuário que cadastrar um evento é responsável pelo evento e só ele pode alterar ou excluir o evento. 
 * Um evento não pode ser alterado ou excluído se já foi vendido ingresso para alguma das suas apresentações. 
 * Quando um evento é excluído, os dados do evento, assim como os dados de suas apresentações, são excluídos do sistema. 
-* O responsável por um evento pode solicitar informação sobre vendas do evento. Nesse caso, o sistema lista, para cada apresentação do evento, a quantidade total de ingressos vendidos e o CPF de cada comprador de ingresso. Cada usuário pode excluir seu cadastro do sistema quando achar conveniente. Entretanto, a exclusão  de um usuário não é realizado se o usuário for responsável por evento que ainda esteja cadastrado. 
+* O responsável por um evento pode solicitar informação sobre vendas do evento. Nesse caso, o sistema lista, para cada apresentação do evento, a quantidade total de ingressos vendidos e o CPF de cada comprador de ingresso. Cada usuário pode excluir seu cadastro do sistema quando achar conveniente. Entretanto, a exclusão  de um usuário não é realizado se o usuário for responsável por evento que ainda esteja cadastrado ou for dono de um ingresso. 
 * Quando há exclusão de um usuário, os dados do usuário são excluídos do sistema.
 
 ##Regras de negócio
 * Cada usuário cadastrado pode ser responsável por até cinco eventos;
 * Cada evento cadastrado pode ter até dez apresentações associadas.
+
