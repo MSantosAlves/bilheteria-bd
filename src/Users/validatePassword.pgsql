@@ -5,7 +5,6 @@ RETURNS TRIGGER AS $$
   password varchar;
   counter integer;
   tempChar char;
-  haveDigit boolean;T
   BEGIN
   password := NEW.UserPassword;
   len := CHAR_LENGTH(password);
@@ -31,9 +30,9 @@ RETURNS TRIGGER AS $$
   -- Verificando se não há caracteres especiais:
   
   counter := 1;
-  WHILE counter < len LOOP
+  WHILE counter <= len LOOP
   tempChar := SUBSTRING(password, counter, 1);
-      IF tempChar !~ '[0-9]' AND tempChar !~* '[a-z]'
+      IF tempChar !~* '[0-9a-z]' 
       THEN
       RAISE EXCEPTION 'Password can not have special characters.'; 
       END IF;
@@ -43,9 +42,9 @@ RETURNS TRIGGER AS $$
   END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER validate_password
-AFTER INSERT ON Users
-FOR EACH ROW EXECUTE PROCEDURE validate_password();
+-- CREATE TRIGGER validate_password
+-- AFTER INSERT ON Users
+-- FOR EACH ROW EXECUTE PROCEDURE validate_password();
 
 -- Teste
 -- SELECT * FROM Users;
