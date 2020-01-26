@@ -4,7 +4,7 @@
 
 CREATE TABLE Users (
 	UserCPF char(11) NOT NULL,
-	UserPassword varchar(6) NOT NULL,
+	UserPassword char(6) NOT NULL,
 	BirthDate DATE NOT NULL,
 	CONSTRAINT UserCPF PRIMARY KEY (UserCPF)
 );
@@ -16,9 +16,9 @@ CREATE TABLE Users (
 --
 -- Esrutura da tabela Events
 --
-
+CREATE SEQUENCE seq_eventID START WITH 100;
 CREATE TABLE Events (
-	EventID char(3) NOT NULL,
+	EventID integer NOT NULL DEFAULT nextval('seq_eventID'),
 	EventName varchar(20) NOT NULL,
 	Class integer NOT NULL,
 	Rating varchar(2) NOT NULL,
@@ -35,15 +35,15 @@ CREATE TABLE Events (
 --
 -- Estrutura da tabela Presentations
 --
-
+CREATE SEQUENCE seq_PresentationID START WITH 1000;
 CREATE TABLE Presentations (
-	PresentationID char(4) NOT NULL,
+	PresentationID integer NOT NULL DEFAULT nextval('seq_PresentationID'),
 	Date DATE NOT NULL,
 	Time TIME NOT NULL,
 	Price money NOT NULL,
 	Room integer NOT NULL,
-	Disponibilty integer NOT NULL,
-	EventID char(3) NOT NULL,
+	Disponibility integer NOT NULL,
+	EventID integer NOT NULL,
 	CONSTRAINT PresentationID PRIMARY KEY (PresentationID)
 );
 
@@ -54,11 +54,11 @@ CREATE TABLE Presentations (
 --
 -- Estrutura da tabela Tickets
 --
-
+CREATE SEQUENCE seq_TicketID START WITH 10000;
 CREATE TABLE Tickets (
-	TicketID char(5) NOT NULL,
+	TicketID integer NOT NULL DEFAULT nextval('seq_TicketID'),
 	UserCPF char(11) NOT NULL,
-	PresentationID char(4) NOT NULL,
+	PresentationID integer NOT NULL,
 	CONSTRAINT TicketID PRIMARY KEY (TicketID)
 );
 

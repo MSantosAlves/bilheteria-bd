@@ -1,8 +1,7 @@
--- VALIDAÇÃO DE CPF
-
-CREATE OR REPLACE FUNCTION valida_cpf()
+CREATE OR REPLACE FUNCTION validate_cpf()
 RETURNS TRIGGER AS $$
 DECLARE
+  userCPF varchar;
   firstDigit integer;
   secondDigit integer;
   contador integer;
@@ -12,24 +11,26 @@ DECLARE
   aux integer;
   len integer;
 BEGIN
+  -- Atribuições 
+  userCPF := NEW.UserCPF;
   len := CHAR_LENGTH(NEW.UserCPF);
+  firstDigit  := CAST(SUBSTRING(userCPF,len - 1,1)AS NUMERIC);
+  secondDigit := CAST(SUBSTRING(userCPF,len,1)AS NUMERIC);
 
-  IF len <> 11
-    THEN
+
+  IF len <> 11 THEN
       RAISE EXCEPTION 'Invalid CPF length.';
   END IF;
 
-  firstDigit  := CAST(SUBSTRING(NEW.UserCPF,10,1)AS NUMERIC);
-  secondDigit := CAST(SUBSTRING(NEW.UserCPF,11,1)AS NUMERIC);
 
--- Validação do primeiro dígito
+  -- Validação do primeiro dígito
 
   contador := 1;
   soma := 0;
   aux := 10;
 
-  WHILE contador <= 9 LOOP
-  temp := CAST(SUBSTRING(NEW.UserCPF,contador,1)AS NUMERIC);
+  WHILE contador <= (len - 2) LOOP
+  temp := CAST(SUBSTRING(userCPF,contador,1)AS NUMERIC);
   soma := soma + (temp * aux);
   contador := contador + 1;
   aux := aux - 1;
@@ -37,25 +38,22 @@ BEGIN
 
   resto := (soma*10)%11;
   
-  IF (resto = 10 OR resto = 11)
-    THEN
-      resto := 0;
+  IF (resto = 10 OR resto = 11) THEN
+    resto := 0;
   END IF;
-  
-  IF(resto <> firstDigit)
-    THEN
-      RAISE EXCEPTION 'Invalid CPF.';
-  END IF;
-  
 
--- Validação do segundo dígito
+  IF(resto <> firstDigit) THEN
+    RAISE EXCEPTION 'Invalid CPF.';
+  END IF;
+
+  -- Validação do segundo dígito
 
   contador := 1;
   soma := 0;
   aux := 11;
 
-  WHILE contador <= 10 LOOP
-  temp := CAST(SUBSTRING(NEW.UserCPF,contador,1)AS NUMERIC);
+  WHILE contador <= (len - 1) LOOP
+  temp := CAST(SUBSTRING(userCPF,contador,1)AS NUMERIC);
   soma := soma + (temp * aux);
   contador := contador + 1;
   aux := aux - 1;
@@ -63,19 +61,18 @@ BEGIN
 
   resto := (soma*10)%11;
   
-  IF (resto = 10 OR resto = 11)
-    THEN
-      resto := 0;
+  IF (resto = 10 OR resto = 11) THEN
+    resto := 0;
   END IF;
 
-  IF(resto <> secondDigit)
-    THEN
-      RAISE EXCEPTION 'Invalid CPF.';
+  IF(resto <> secondDigit) THEN
+    RAISE EXCEPTION 'Invalid CPF.';
   END IF;
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER valida_cpf
+CREATE TRIGGER validate_cpf
 AFTER INSERT ON Users
-FOR EACH ROW EXECUTE PROCEDURE valida_cpf(); 
+FOR EACH ROW EXECUTE PROCEDURE validate_cpf(); 
