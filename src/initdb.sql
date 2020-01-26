@@ -4,7 +4,7 @@
 
 CREATE TABLE Users (
 	UserCPF char(11) NOT NULL,
-	UserPassword char(6) NOT NULL,
+	UserPassword char(32) NOT NULL,
 	BirthDate DATE NOT NULL,
 	CONSTRAINT UserCPF PRIMARY KEY (UserCPF)
 );
@@ -42,7 +42,7 @@ CREATE TABLE Presentations (
 	Time TIME NOT NULL,
 	Price money NOT NULL,
 	Room integer NOT NULL,
-	Disponibility integer NOT NULL,
+	Disponibility integer DEFAULT 250,
 	EventID integer NOT NULL,
 	CONSTRAINT PresentationID PRIMARY KEY (PresentationID)
 );
@@ -94,4 +94,4 @@ ALTER TABLE Presentations ADD CONSTRAINT EventID FOREIGN KEY (EventID) REFERENCE
 ALTER TABLE Tickets ADD CONSTRAINT UserCPF FOREIGN KEY (UserCPF) REFERENCES Users(UserCPF);
 ALTER TABLE Tickets ADD CONSTRAINT PresentationID FOREIGN KEY (PresentationID) REFERENCES Presentations(PresentationID);
 
-ALTER TABLE Cards ADD CONSTRAINT UserCPF FOREIGN KEY (UserCPF) REFERENCES Users(UserCPF);
+ALTER TABLE Cards ADD CONSTRAINT UserCPF FOREIGN KEY (UserCPF) REFERENCES Users(UserCPF) ON DELETE CASCADE;

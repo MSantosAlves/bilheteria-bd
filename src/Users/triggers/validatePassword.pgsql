@@ -33,11 +33,11 @@ DECLARE
     END IF;
     counter := counter + 1;
   END LOOP;
-
+  NEW.UserPassword := md5(password);
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER validate_password
-AFTER INSERT ON Users
+BEFORE INSERT OR UPDATE ON Users
 FOR EACH ROW EXECUTE PROCEDURE validate_password();

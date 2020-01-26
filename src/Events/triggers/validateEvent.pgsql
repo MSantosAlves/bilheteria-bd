@@ -63,5 +63,5 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER validate_event
-AFTER INSERT ON Events
+BEFORE INSERT ON Events
 FOR EACH ROW EXECUTE PROCEDURE validate_event();

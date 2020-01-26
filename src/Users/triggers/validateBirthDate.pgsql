@@ -9,6 +9,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER validateBirthDate
-AFTER INSERT ON Users
+BEFORE INSERT OR UPDATE ON Users
 FOR EACH ROW EXECUTE PROCEDURE validateBirthDate();
 
