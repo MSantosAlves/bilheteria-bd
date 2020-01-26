@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION validateBirthDate()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF(NEW.BirthDate < '1900-01-01' OR NEW.BirthDate > CURRENT_DATE) THEN
+    RAISE EXCEPTION 'Invalid birth date.'
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER validateBirthDate
+AFTER INSERT ON Users
+FOR EACH ROW EXECUTE PROCEDURE validateBirthDate();
