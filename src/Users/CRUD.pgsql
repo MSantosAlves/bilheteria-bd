@@ -26,7 +26,7 @@ BEGIN
   UserCPF = _userCPF AND UserPassword = md5(_userPassword);
 	
   IF rec_user.UserCPF IS NULL THEN
-    RAISE EXCEPTION 'Password and CPF does not match.';
+    RAISE EXCEPTION 'User authentication failed.';
   END IF;
 
   IF(_newPassword = '') THEN
@@ -61,7 +61,7 @@ BEGIN
   UserCPF = _userCPF AND UserPassword = md5(_userPassword);
 	
   IF rec_user.UserCPF IS NULL THEN
-    RAISE EXCEPTION 'Password and CPF does not match.';
+    RAISE EXCEPTION 'User authentication failed.';
   END IF;
   
   DELETE FROM Users WHERE UserCPF = _userCPF;
