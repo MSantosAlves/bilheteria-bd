@@ -1,9 +1,9 @@
-#O Projeto
+# O Projeto
 
 	Banco de dados de um uma organização promotora de eventos. Por meio desse sistema podem ser vendidos ingressos para apresentações
 das seguintes classes de evento: teatro, esporte, show nacional e show internacional.
 
-##Requisitos funcionais
+## Requisitos funcionais
 
 * Um usuário do sistema pode comprar ingresso, cadastrar e editar eventos. Para isso deve ser cadastrado e estar autenticado através de CPF e senha. Para se cadastrar precisa informar CPF, senha e os seguintes dados sobre seu cartão de crédito: número, código de segurança e data de validade.
 
