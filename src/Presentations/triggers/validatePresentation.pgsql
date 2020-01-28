@@ -34,5 +34,5 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER validatePresentation
-BEFORE INSERT ON Presentations
+BEFORE INSERT OR UPDATE ON Presentations
 FOR EACH ROW EXECUTE PROCEDURE validatePresentation();

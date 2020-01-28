@@ -11,9 +11,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- View de usuários cadastrados
-CREATE VIEW users_view AS SELECT UserCPF, BirthDate FROM Users;
-
 -- Atualização de usuário (senha, data de nascimento ou cartão de crédito)
 CREATE OR REPLACE FUNCTION update_user(_userCPF char(11), _userPassword char(6), 
     _newPassword char(6), _birthDate date, _cardNumber char(16), _securityCod char(3),

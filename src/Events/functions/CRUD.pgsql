@@ -34,7 +34,7 @@ BEGIN
   WHERE 
   UserCPF = _userCPF AND UserPassword = md5(_userPassword);
 	
-  IF rec_user.UserCPF IS NULL THEN
+  IF rec_user IS NULL THEN
     RAISE EXCEPTION 'User authentication failed.';
   END IF;
 

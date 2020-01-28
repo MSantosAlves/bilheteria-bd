@@ -17,9 +17,9 @@ das seguintes classes de evento: teatro, esporte, show nacional e show internaci
 
 * Quando um evento é excluído, os dados do evento, assim como os dados de suas apresentações, são excluídos do sistema. 
 
-* Para acessar os dados dos eventos o usuário deve prover os seguintes dados: datas de início e término do evento, nome da cidade e sigla do estado no qual ocorrerá o evento.
-
 * Para adquirir ingressos, o usuário deve informar o código da apresentação e a quantidade de ingressos desejada. Se houver a quantidade de ingressos desejada, o sistema lista os códigos dos ingressos vendidos e atualiza a quantidade de ingressos disponíveis para a apresentação. 
+
+* Para acessar os dados dos eventos o usuário deve prover os seguintes dados: datas de início e término do evento, nome da cidade e sigla do estado no qual ocorrerá o evento.
 
 * O resultado da consulta ao sistema deve listar os seguintes dados: nome do evento, código de cada apresentação, data de apresentação, horário de cada apresentação, preço do ingresso de cada apresentação, número da sala de cada apresentação, quantidade de ingressos disponíveis  para cada apresentação, classe e faixa etária do evento. 
 
