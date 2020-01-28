@@ -27,7 +27,7 @@ das seguintes classes de evento: teatro, esporte, show nacional e show internaci
 
 * Quando há exclusão de um usuário, os dados do usuário são excluídos do sistema.
 
-##Regras de negócio
+## Regras de negócio
 
 * Cada usuário cadastrado pode ser responsável por até cinco eventos;
 
