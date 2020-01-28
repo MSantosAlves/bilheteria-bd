@@ -4,6 +4,7 @@ DECLARE
   events Events%rowtype;
   tickets Tickets%rowtype;
 BEGIN
+  -- Verificando se o usuário possui eventos registrados
   FOR events IN 
     SELECT * FROM Events 
   LOOP
@@ -12,6 +13,7 @@ BEGIN
     END IF;
   END LOOP;
 
+  -- Verificando se o usuário possui ingressos registrados
   FOR tickets IN 
     SELECT * FROM Tickets 
   LOOP

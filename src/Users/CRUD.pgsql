@@ -12,11 +12,12 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- View de usuários cadastrados
-CREATE VIEW user_view AS SELECT UserCPF, BirthDate FROM Users;
+CREATE VIEW users_view AS SELECT UserCPF, BirthDate FROM Users;
 
 -- Atualização de usuário (senha, data de nascimento ou cartão de crédito)
-CREATE OR REPLACE FUNCTION update_user(_userCPF char(11), _userPassword char(6),_newPassword char(6), 
-                        _BirthDate date, _cardNumber char(16), _securityCod char(3), _validThru date)
+CREATE OR REPLACE FUNCTION update_user(_userCPF char(11), _userPassword char(6), 
+    _newPassword char(6), _birthDate date, _cardNumber char(16), _securityCod char(3),
+    _validThru date)
 RETURNS text AS $$
 DECLARE
   rec_user RECORD;
@@ -29,22 +30,33 @@ BEGIN
     RAISE EXCEPTION 'User authentication failed.';
   END IF;
 
-  IF(_newPassword = '') THEN
-    _newPassword := _userPassword;
-  END IF;
-
-  UPDATE Users 
-  SET 
-    UserPassword = _newPassword,
-    BirthDate = _BirthDate
+  UPDATE Users
+    SET
+    UserPassword = CASE
+      WHEN _newPassword = ''  THEN _userPassword
+      ELSE _newPassword
+      END,
+    BirthDate = CASE
+      WHEN _birthDate IS NULL THEN BirthDate
+      ELSE _birthDate
+      END
   WHERE UserCPF = _userCPF;
 
-  UPDATE Cards 
-  SET 
-    CardNumber = _cardNumber,
-    SecurityCod = _SecurityCod,
-    ValidThru = _Validthru
-  WHERE UserCPF = _UserCPF;
+  UPDATE Cards
+    SET
+    CardNumber = CASE
+      WHEN _cardNumber = '' THEN CardNumber
+      ELSE _cardNumber
+    END,
+    SecurityCod = CASE
+      WHEN _securityCod = '' THEN SecurityCod
+      ELSE _securityCod
+    END,
+    ValidThru = CASE
+      WHEN _validThru IS NULL THEN ValidThru
+      ELSE _validThru
+    END
+  WHERE UserCPF = _userCPF;
 
   RETURN 'User successfully updated.';
 END;
@@ -63,7 +75,7 @@ BEGIN
   IF rec_user.UserCPF IS NULL THEN
     RAISE EXCEPTION 'User authentication failed.';
   END IF;
-  
+
   DELETE FROM Users WHERE UserCPF = _userCPF;
   RETURN 'User successfully deleted.';
 END;

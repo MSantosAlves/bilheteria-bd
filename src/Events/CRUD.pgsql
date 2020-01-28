@@ -4,7 +4,6 @@ CREATE OR REPLACE FUNCTION create_event(_userCPF char(11), _userPassword char(6)
 RETURNS text AS $$
 DECLARE
   rec_user RECORD;
-  reg_events RECORD;
 BEGIN
   SELECT UserCPF INTO rec_user FROM Users 
   WHERE 
@@ -12,13 +11,6 @@ BEGIN
 	
   IF rec_user.UserCPF IS NULL THEN
     RAISE EXCEPTION 'User authentication failed.';
-  END IF;
-
-  SELECT COUNT(UserCPF) AS nb INTO reg_events FROM Events
-  WHERE UserCPF = _userCPF; 
-
-  IF(reg_events.nb = 5) THEN 
-    RAISE EXCEPTION 'User already has 5 registered events';
   END IF;
 
   INSERT INTO Events(EventName, Class, Rating, State, City, UserCPF) 
@@ -37,7 +29,6 @@ RETURNS text AS $$
 DECLARE
   rec_user RECORD;
   rec_event RECORD;
-  rec_invalid_events RECORD;
 BEGIN
   SELECT UserCPF INTO rec_user FROM Users 
   WHERE 
@@ -53,14 +44,6 @@ BEGIN
 
   IF rec_event IS NULL THEN
     RAISE EXCEPTION 'Invalid event ID';
-  END IF;
-
-  SELECT * INTO rec_invalid_events FROM Events E 
-  INNER JOIN 
-  Presentations P ON P.EventID = _eventID AND P.Disponibility < 250;
-
-  IF rec_invalid_events IS NOT NULL THEN 
-    RAISE EXCEPTION 'Can not edit events that already sold presentation tickets.';
   END IF;
 
   UPDATE Events
