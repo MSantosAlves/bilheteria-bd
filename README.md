@@ -1,7 +1,6 @@
 # O Projeto
 
-	Banco de dados de um uma organização promotora de eventos. Por meio desse sistema podem ser vendidos ingressos para apresentações
-das seguintes classes de evento: teatro, esporte, show nacional e show internacional.
+	Banco de dados de um uma organização promotora de eventos. Por meio desse sistema podem ser vendidos ingressos para apresentações das seguintes classes de evento: teatro, esporte, show nacional e show internacional.
 
 ## Requisitos funcionais
 

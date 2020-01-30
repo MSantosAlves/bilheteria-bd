@@ -21,7 +21,7 @@ BEGIN
     RAISE EXCEPTION 'Invalid event ID';
   END IF;
 
-  INSERT INTO Presentations(Date, Time,Price, Room, EventID) 
+  INSERT INTO Presentations(Date, PresentationTime,Price, Room, EventID) 
   VALUES (_date, _time, _price, _room, _eventID);
   RETURN 'Presentations successfully created.';
 END;
@@ -57,8 +57,8 @@ BEGIN
       WHEN _date IS NULL THEN Date
       ELSE _date
     END,
-    Time = CASE
-      WHEN _time IS NULL THEN Time
+    PresentationTime = CASE
+      WHEN _time IS NULL THEN PresentationTime
       ELSE _time
     END,
     Price = CASE

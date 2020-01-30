@@ -22,6 +22,42 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+CREATE OR REPLACE FUNCTION show_event(_initDate date, _endDate date, _city varchar(20), _state char(2))
+RETURNS TABLE("Evento" varchar,
+              "Número da apresentação" integer,
+              "Data" date,
+			        "Horário" time,
+              "Preço" money,
+              "Sala" integer,
+              "Ingressos disponíveis" integer,
+              "Classe" integer,
+              "Classificação indicativa" varchar
+              )AS $$
+BEGIN
+  RETURN QUERY
+  SELECT E.EventName, P.PresentationID, P.Date, P.PresentationTime, P.Price, 
+  P.Room, P.Disponibility, E.Class, E.Rating
+  FROM Events E INNER JOIN Presentations P ON E.EventID = P.EventID
+  WHERE P.Date BETWEEN _initDate AND _endDate;
+END;
+$$ LANGUAGE plpgsql;  
+
+
+CREATE OR REPLACE FUNCTION events_control(_userCPF char(11), _userPassword char(6), _eventID integer)
+RETURNS TABLE (
+               "Número da apresentação" integer,
+               "Ingressos vendidos" integer
+              )AS $$
+BEGIN
+  RETURN QUERY
+  SELECT P.PresentationID, 250 - P.Disponibility 
+  FROM Presentations P
+  WHERE P.EventID = _eventID
+  GROUP BY P.PresentationID;
+END;
+$$ LANGUAGE plpgsql;
+
+
 CREATE OR REPLACE FUNCTION update_event(_userCPF char(11), _userPassword char(6),
        _eventID integer, _eventName varchar(20), _class integer, _rating char(2),
                          _state char(2), _city varchar(15))

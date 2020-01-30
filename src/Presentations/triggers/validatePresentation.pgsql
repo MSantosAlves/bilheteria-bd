@@ -8,8 +8,8 @@ BEGIN
     RAISE EXCEPTION 'Invalid date.';
   END IF;
 
-  minutes := EXTRACT(min FROM NEW.Time);
-  IF(NEW.Time > '22:00:00' OR NEW.Time < '07:00:00') THEN
+  minutes := EXTRACT(min FROM NEW.PresentationTime);
+  IF(NEW.PresentationTime > '22:00:00' OR NEW.PresentationTime < '07:00:00') THEN
     RAISE EXCEPTION 'Invalid time.';
   ELSIF (minutes%15 <> 0) THEN
     RAISE EXCEPTION 'Invalid time.';

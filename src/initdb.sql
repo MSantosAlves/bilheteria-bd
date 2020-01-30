@@ -39,7 +39,7 @@ CREATE SEQUENCE seq_PresentationID START WITH 1000;
 CREATE TABLE Presentations (
 	PresentationID integer NOT NULL DEFAULT nextval('seq_PresentationID'),
 	Date DATE NOT NULL,
-	Time TIME NOT NULL,
+	PresentationTime TIME NOT NULL,
 	Price money NOT NULL,
 	Room integer NOT NULL,
 	Disponibility integer DEFAULT 250,
