@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION update_function()
+CREATE OR REPLACE FUNCTION update_event()
 RETURNS TRIGGER AS $$
 DECLARE
   rec_invalid_events RECORD;
@@ -18,4 +18,4 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER update_event
 BEFORE UPDATE ON Events
-FOR EACH ROW EXECUTE PROCEDURE update_function();
+FOR EACH ROW EXECUTE PROCEDURE update_event();

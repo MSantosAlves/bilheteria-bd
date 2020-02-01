@@ -1,6 +1,8 @@
 -- Criação de usuário
 
-CREATE OR REPLACE FUNCTION create_user(_userCPF char(11), _userPassword char(6), _birthDate date, _cardNumber char(16), _securityCod char(3), _validThru date)
+CREATE OR REPLACE FUNCTION create_user(_userCPF char(11), _userPassword char(6), 
+                                          _birthDate date, _cardNumber char(16), 
+                                          _securityCod char(3), _validThru date)
 RETURNS text AS $$
 BEGIN
   INSERT INTO Users(UserCPF, UserPassword, BirthDate) VALUES

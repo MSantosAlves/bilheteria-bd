@@ -5,11 +5,11 @@ RETURNS text AS $$
 DECLARE
   rec_user RECORD;
 BEGIN
-  SELECT UserCPF INTO rec_user FROM Users 
+  SELECT * INTO rec_user FROM Users 
   WHERE 
   UserCPF = _userCPF AND UserPassword = md5(_userPassword);
 	
-  IF rec_user.UserCPF IS NULL THEN
+  IF rec_user IS NULL THEN
     RAISE EXCEPTION 'User authentication failed.';
   END IF;
 
@@ -20,7 +20,6 @@ BEGIN
   RETURN 'Event successfully created.';
 END;
 $$ LANGUAGE plpgsql;
-
 
 CREATE OR REPLACE FUNCTION show_event(_initDate date, _endDate date, _city varchar(20), _state char(2))
 RETURNS TABLE("Evento" varchar,
@@ -37,11 +36,10 @@ BEGIN
   RETURN QUERY
   SELECT E.EventName, P.PresentationID, P.Date, P.PresentationTime, P.Price, 
   P.Room, P.Disponibility, E.Class, E.Rating
-  FROM Events E INNER JOIN Presentations P ON E.EventID = P.EventID
+  FROM Events E INNER JOIN Presentations P ON E.EventID = P.EventID AND E.State = _state AND E.City = _city
   WHERE P.Date BETWEEN _initDate AND _endDate;
 END;
-$$ LANGUAGE plpgsql;  
-
+$$ LANGUAGE plpgsql;   
 
 CREATE OR REPLACE FUNCTION events_control(_userCPF char(11), _userPassword char(6), _eventID integer)
 RETURNS TABLE (
@@ -66,7 +64,7 @@ DECLARE
   rec_user RECORD;
   rec_event RECORD;
 BEGIN
-  SELECT UserCPF INTO rec_user FROM Users 
+  SELECT * INTO rec_user FROM Users 
   WHERE 
   UserCPF = _userCPF AND UserPassword = md5(_userPassword);
 	
@@ -79,7 +77,7 @@ BEGIN
   EventID = _eventID;
 
   IF rec_event IS NULL THEN
-    RAISE EXCEPTION 'Invalid event ID';
+    RAISE EXCEPTION 'Invalid event ID.';
   END IF;
 
   UPDATE Events
@@ -113,7 +111,7 @@ RETURNS text AS $$
 DECLARE
   rec_user RECORD;
 BEGIN
-  SELECT UserCPF INTO rec_user FROM Users 
+  SELECT * INTO rec_user FROM Users 
   WHERE 
   UserCPF = _userCPF AND UserPassword = md5(_userPassword);
 	

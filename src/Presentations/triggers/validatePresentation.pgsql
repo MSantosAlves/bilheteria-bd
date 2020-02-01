@@ -25,10 +25,6 @@ BEGIN
     RAISE EXCEPTION 'Room is a number between 1 and 10.';
   END IF;
   
-  -- Validação da disponibilidade
-  IF (NEW.Disponibility < 0 OR NEW.Disponibility > 250) THEN
-    RAISE EXCEPTION 'Disponibility is a number between 1 and 250;';
-  END IF;
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

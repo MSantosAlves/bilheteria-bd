@@ -6,7 +6,7 @@ DECLARE
   rec_event RECORD;
 BEGIN
 
-  SELECT UserCPF INTO rec_user FROM Users 
+  SELECT * INTO rec_user FROM Users 
   WHERE 
   UserCPF = _userCPF AND UserPassword = md5(_userPassword);
 	
@@ -18,12 +18,12 @@ BEGIN
   WHERE EventID = _eventID AND UserCPF = _userCPF;
 
   IF rec_event IS NULL THEN
-    RAISE EXCEPTION 'Invalid event ID';
+    RAISE EXCEPTION 'Invalid event ID.';
   END IF;
 
   INSERT INTO Presentations(Date, PresentationTime,Price, Room, EventID) 
   VALUES (_date, _time, _price, _room, _eventID);
-  RETURN 'Presentations successfully created.';
+  RETURN 'Presentation successfully created.';
 END;
 $$ LANGUAGE plpgsql;
 
@@ -33,7 +33,6 @@ CREATE OR REPLACE FUNCTION update_presentation(_userCPF char(11), _userPassword 
 RETURNS text AS $$
 DECLARE
   rec_user RECORD;
-  rec_event RECORD;
   rec_presentation RECORD;
 BEGIN
   SELECT UserCPF INTO rec_user FROM Users 

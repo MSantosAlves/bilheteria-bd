@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION buyTicket(_userCPF char(11), _userPassword char(6), 
-                                   _eventID integer, _presentationID integer, _quantity integer)
+                                    _presentationID integer, _quantity integer)
 RETURNS text AS $$
 DECLARE
   rec_user RECORD;
